@@ -9,8 +9,8 @@ class AuthController {
   constructor(@inject(TYPES.AuthService) private authService: IAuthService) {}
 
   readonly register = catchAsync((req: Request, res: Response) => {
-    const { username, password } = req.body
-    const user = this.authService.register(username, password)
+    const { name, password } = req.body
+    const user = this.authService.register(name, password)
     res.status(201).json(user)
   })
 

@@ -1,5 +1,6 @@
 import bodyParser from 'body-parser'
 import express from 'express'
+import morgan from 'morgan'
 import userRoute from './src/routes/userRoute'
 class App {
   public app: express.Application
@@ -11,6 +12,7 @@ class App {
 
   private config(): void {
     this.app.use(bodyParser.json())
+    this.app.use(morgan('dev')) // for logging http requests
   }
 
   private routes(): void {
