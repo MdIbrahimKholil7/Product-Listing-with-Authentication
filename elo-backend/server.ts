@@ -1,6 +1,6 @@
 import bodyParser from 'body-parser'
 import express from 'express'
-
+import userRoute from './src/routes/userRoute'
 class App {
   public app: express.Application
   constructor() {
@@ -14,7 +14,7 @@ class App {
   }
 
   private routes(): void {
-    this.app.use('/auth', () => {})
+    this.app.use('/auth', userRoute)
   }
 }
 
