@@ -4,3 +4,9 @@ export interface IProduct {
   description: string
   price: number
 }
+
+interface IProductService {
+  searchProducts(query: string): IProduct[]
+}
+
+export default IProductService
