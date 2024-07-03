@@ -1,19 +1,35 @@
 import { Router } from 'express'
-import AuthController from '../controller/authController'
-import container from '../config/inversify.config'
+import { inject, injectable } from 'inversify'
 import TYPES from '../utils/appConsts'
-import { validationMiddleware } from '../middlware/userValidationMiddlware/userRegistryValidation'
+
 import UserRegisterDTO from '../dto/userDto/userRegistry.dto'
+import { validationMiddleware } from '../middlware/userValidationMiddlware/userRegistryValidation'
+import AuthController from '../controller/authController'
 import UserLoginDTO from '../middlware/userValidationMiddlware/userLoginValidation'
 
-const authController = container.get<AuthController>(TYPES.AuthController)
-const router = Router()
+@injectable()
+class AuthRoutes {
+  public router: Router
 
-router.post(
-  '/register',
-  validationMiddleware(UserRegisterDTO),
-  authController.register,
-)
-router.post('/login', validationMiddleware(UserLoginDTO), authController.login)
+  constructor(
+    @inject(TYPES.AuthController) private authController: AuthController,
+  ) {
+    this.router = Router()
+    this.initializeRoutes()
+  }
 
-export default router
+  private initializeRoutes() {
+    this.router.post(
+      '/register',
+      validationMiddleware(UserRegisterDTO),
+      this.authController.register,
+    )
+    this.router.post(
+      '/login',
+      validationMiddleware(UserLoginDTO),
+      this.authController.login,
+    )
+  }
+}
+
+export default AuthRoutes

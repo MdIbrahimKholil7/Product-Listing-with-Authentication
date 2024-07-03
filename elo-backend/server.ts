@@ -4,7 +4,11 @@ import morgan from 'morgan'
 import userRoute from './src/routes/userRoute'
 import errorMiddleware from './src/utils/errorMiddlware'
 import dotenv from 'dotenv'
-
+import container from './src/config/inversify.config'
+import AuthRoutes from './src/routes/userRoute'
+import TYPES from './src/utils/appConsts'
+import ProductRoutes from './src/routes/productRoute'
+import notFoundMiddleware from './src/middlware/notFoundMiddlware'
 dotenv.config()
 class App {
   public app: express.Application
@@ -20,8 +24,16 @@ class App {
   }
 
   private routes(): void {
-    this.app.use('/auth', userRoute)
-    this.app.use(errorMiddleware) // Error-handling middleware
+    const authRoutes = container.get<AuthRoutes>(TYPES.AuthRoutes)
+    const productRoutes = container.get<ProductRoutes>(TYPES.ProductRoutes)
+
+    this.app.use('/api/auth', authRoutes.router)
+    this.app.use('/api/product', productRoutes.router)
+
+    // 404 Middleware
+    this.app.use(notFoundMiddleware)
+    // Error-handling middleware
+    this.app.use(errorMiddleware)
   }
 }
 
