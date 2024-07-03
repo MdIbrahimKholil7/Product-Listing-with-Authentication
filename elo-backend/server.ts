@@ -2,6 +2,7 @@ import bodyParser from 'body-parser'
 import express from 'express'
 import morgan from 'morgan'
 import userRoute from './src/routes/userRoute'
+import errorMiddleware from './src/utils/errorMiddlware'
 class App {
   public app: express.Application
   constructor() {
@@ -17,6 +18,7 @@ class App {
 
   private routes(): void {
     this.app.use('/auth', userRoute)
+    this.app.use(errorMiddleware) // Error-handling middleware
   }
 }
 
