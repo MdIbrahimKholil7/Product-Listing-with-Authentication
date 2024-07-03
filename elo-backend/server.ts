@@ -3,6 +3,9 @@ import express from 'express'
 import morgan from 'morgan'
 import userRoute from './src/routes/userRoute'
 import errorMiddleware from './src/utils/errorMiddlware'
+import dotenv from 'dotenv'
+
+dotenv.config()
 class App {
   public app: express.Application
   constructor() {
