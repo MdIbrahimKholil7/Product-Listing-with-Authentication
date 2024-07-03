@@ -10,8 +10,8 @@ import { config } from '../config/config'
 class AuthService implements IAuthService {
   private users: User[] = []
 
-  public register(user: User): LoginType {
-    const { name, password, email, address } = user
+  register(payload: User): LoginType {
+    const { name, password, email, address } = payload
     const existingUser = this.users.find(u => u.email === email)
     if (existingUser) {
       throw new AppError(`User ${email} already exists`, status.CONFLICT)
@@ -26,7 +26,8 @@ class AuthService implements IAuthService {
     return { token, user: userData }
   }
 
-  public login({ email, password }: ILoginArgs): LoginType {
+  login(payload: ILoginArgs): LoginType {
+    const { email, password } = payload
     const user = this.users.find(u => u.email === email)
     if (!user) throw new AppError('Invalid email', 401)
     const { password: userPassword, ...userData } = user
