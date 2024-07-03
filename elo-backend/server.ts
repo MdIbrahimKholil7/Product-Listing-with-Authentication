@@ -1,15 +1,21 @@
+import bodyParser from 'body-parser'
 import express from 'express'
 
 class App {
   public app: express.Application
-
   constructor() {
     this.app = express()
-
+    this.config()
     this.routes()
   }
 
-  private routes(): void {}
+  private config(): void {
+    this.app.use(bodyParser.json())
+  }
+
+  private routes(): void {
+    this.app.use('/auth', () => {})
+  }
 }
 
 const app = new App().app
