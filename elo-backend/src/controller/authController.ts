@@ -3,14 +3,15 @@ import { inject, injectable } from 'inversify'
 import { IAuthService } from '../interface/IAuthService'
 import TYPES from '../utils/appConsts'
 import { catchAsync } from '../utils/catchAsync'
+import AuthService from '../services/authService'
 
 @injectable()
 class AuthController {
-  constructor(@inject(TYPES.AuthService) private authService: IAuthService) {}
+  constructor(@inject(TYPES.AuthService) private authService: AuthService) {}
 
   readonly register = catchAsync((req: Request, res: Response) => {
-    const { name, password } = req.body
-    const user = this.authService.register(name, password)
+    const { name, password, email, address } = req.body
+    const user = this.authService.register({ name, password, email, address })
     res.status(201).json(user)
   })
 
