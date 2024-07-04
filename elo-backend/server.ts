@@ -9,6 +9,7 @@ import AuthRoutes from './src/routes/userRoute'
 import TYPES from './src/utils/appConsts'
 import ProductRoutes from './src/routes/productRoute'
 import notFoundMiddleware from './src/middlware/notFoundMiddlware'
+import setupSwagger from './src/config/swagger.config'
 dotenv.config()
 class App {
   public app: express.Application
@@ -16,6 +17,7 @@ class App {
     this.app = express()
     this.config()
     this.routes()
+    setupSwagger(this.app)
   }
 
   private config(): void {
@@ -31,7 +33,7 @@ class App {
     this.app.use('/api/product', productRoutes.router)
 
     // 404 Middleware
-    this.app.use(notFoundMiddleware)
+    // this.app.use(notFoundMiddleware)
     // Error-handling middleware
     this.app.use(errorMiddleware)
   }
