@@ -4,7 +4,6 @@ import bcrypt from 'bcryptjs'
 import { IAuthService, ILoginArgs, LoginType } from '../interface/IAuthService'
 import User from '../model/userModel'
 import AppError from '../utils/appError'
-import status from 'http-status'
 import { config } from '../config/config'
 import httpStatus from 'http-status'
 
