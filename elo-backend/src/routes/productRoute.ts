@@ -22,29 +22,30 @@ class ProductRoutes {
      * @swagger
      * /api/product/query:
      *   get:
-     *     summary: Search products by query
+     *     summary: Search products with a wildcard query
      *     tags: [Products]
      *     security:
      *       - BearerAuth: []
      *     parameters:
      *       - in: query
      *         name: query
+     *         required: true
      *         schema:
      *           type: string
-     *         required: true
-     *         description: Query string to search products
+     *         description: Wildcard query string
      *     responses:
-     *       200:
-     *         description: A list of products matching the query
+     *       '200':
+     *         description: Successful response with products
      *         content:
      *           application/json:
      *             schema:
-     *               type: array
-     *               items:
-     *                 $ref: '#/components/schemas/Product'
-     *       400:
-     *         description: Invalid query parameter
+     *               $ref: '#/components/schemas/ProductResponse'
+     *       '401':
+     *         description: Unauthorized request, invalid token
+     *       '500':
+     *         description: Internal server error
      */
+
     this.router.get(
       '/query',
       authMiddleware,

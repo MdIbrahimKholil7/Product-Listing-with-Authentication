@@ -64,24 +64,40 @@ export const swaggerSchemas = {
       },
     },
   },
-  Product: {
+  ProductResponse: {
     type: 'object',
     properties: {
-      id: {
-        type: 'integer',
-        example: 1,
+      success: {
+        type: 'boolean',
+        example: true,
       },
-      name: {
+      message: {
         type: 'string',
-        example: 'Product Name',
+        example: 'success',
       },
-      description: {
-        type: 'string',
-        example: 'Product Description',
-      },
-      price: {
-        type: 'number',
-        example: 19.99,
+      data: {
+        type: 'array',
+        items: {
+          type: 'object',
+          properties: {
+            id: {
+              type: 'integer',
+              example: 1,
+            },
+            name: {
+              type: 'string',
+              example: 'Product Name',
+            },
+            description: {
+              type: 'string',
+              example: 'Product Description',
+            },
+            price: {
+              type: 'number',
+              example: 19.99,
+            },
+          },
+        },
       },
     },
   },

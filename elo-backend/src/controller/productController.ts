@@ -24,7 +24,11 @@ class ProductController {
       )
     }
     const products: IProduct[] = this.productService.searchProducts(query)
-    res.json(products)
+    res.json({
+      success: true,
+      message: 'success',
+      data: products,
+    })
   })
 }
 
