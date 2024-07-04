@@ -2,7 +2,7 @@ import swaggerJSDoc from 'swagger-jsdoc'
 import swaggerUi from 'swagger-ui-express'
 import { Application } from 'express'
 import dotenv from 'dotenv'
-import { swaggerSchemas } from '../shared/swaggerSchema/productSchema'
+import { swaggerSchemas } from '../shared/swaggerSchema/swaggerSchema'
 
 dotenv.config()
 
