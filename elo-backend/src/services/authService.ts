@@ -39,7 +39,10 @@ class AuthService implements IAuthService {
     const user = this.users.get(email)
 
     if (!user) {
-      throw new AppError('Invalid email', httpStatus.UNAUTHORIZED)
+      throw new AppError(
+        'No user found with this email',
+        httpStatus.UNAUTHORIZED,
+      )
     }
 
     const { password: userPassword, ...userData } = user
