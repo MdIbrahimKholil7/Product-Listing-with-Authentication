@@ -29,7 +29,6 @@ class ProductRoutes {
      *     parameters:
      *       - in: query
      *         name: query
-     *         required: true
      *         schema:
      *           type: string
      *         description: Wildcard query string

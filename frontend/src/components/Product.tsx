@@ -21,6 +21,7 @@ const Product = () => {
   const handleSearch = () => {
     setQuery(searchTerm);
   };
+
   useEffect(() => {
     // Simulate token validation logic (replace with your actual token validation logic)
     const validateToken = async () => {
