@@ -15,6 +15,8 @@ This is a product listing application with user authentication, built using Node
 - User registration and login forms.
 - Product listing with search functionality.
 
+### After login/register it will redirect to the product page
+
 ### Docker:
 
 - Dockerized setup for both frontend and backend.

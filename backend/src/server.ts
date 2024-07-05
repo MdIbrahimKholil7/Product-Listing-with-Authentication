@@ -34,8 +34,6 @@ export class App {
     this.app.use('/api/auth', authRoutes.router)
     this.app.use('/api/product', productRoutes.router)
 
-    // 404 Middleware
-    // this.app.use(notFoundMiddleware)
     // Error-handling middleware
     this.app.use(errorMiddleware)
   }
