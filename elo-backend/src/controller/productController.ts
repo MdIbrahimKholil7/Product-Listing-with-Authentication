@@ -17,12 +17,7 @@ class ProductController {
 
   readonly searchProducts = catchAsync((req: Request, res: Response) => {
     const { query } = req.query
-    if (typeof query !== 'string') {
-      throw new AppError(
-        'Query parameter must be a string',
-        httpStatus.BAD_REQUEST,
-      )
-    }
+
     const products: IProduct[] = this.productService.searchProducts(query)
     res.json({
       success: true,

@@ -10,13 +10,17 @@ class ProductService implements IProductService {
     this.products = productsData as IProduct[]
   }
 
-  searchProducts(query: string): IProduct[] {
-    const searchTerm = query.toLowerCase()
-    return this.products.filter(product =>
-      Object.values(product).some(value =>
-        value.toString().toLowerCase().includes(searchTerm),
-      ),
-    )
+  searchProducts(query: string | undefined | any): IProduct[] {
+    if (typeof query === 'string') {
+      const searchTerm = query.toLowerCase()
+      return this.products.filter(product =>
+        Object.values(product).some(value =>
+          value.toString().toLowerCase().includes(searchTerm),
+        ),
+      )
+    } else {
+      return this.products
+    }
   }
 }
 
