@@ -40,25 +40,38 @@ export const swaggerSchemas = {
   TokenResponse: {
     type: 'object',
     properties: {
-      token: {
-        type: 'string',
-        example: 'edfkgfghjfjdgjbvgbngifhsgjkgg...',
+      success: {
+        type: 'boolean',
+        example: true,
       },
-      user: {
+      message: {
+        type: 'string',
+        example: 'success',
+      },
+      data: {
         type: 'object',
         properties: {
-          name: {
+          token: {
             type: 'string',
-            example: 'John Doe',
+            example: 'edfkgfghjfjdgjbvgbngifhsgjkgg...',
           },
-          email: {
-            type: 'string',
-            format: 'email',
-            example: 'john.doe@example.com',
-          },
-          address: {
-            type: 'string',
-            example: '123 Street, City, Country',
+          user: {
+            type: 'object',
+            properties: {
+              name: {
+                type: 'string',
+                example: 'John Doe',
+              },
+              email: {
+                type: 'string',
+                format: 'email',
+                example: 'john.doe@example.com',
+              },
+              address: {
+                type: 'string',
+                example: '123 Street, City, Country',
+              },
+            },
           },
         },
       },
