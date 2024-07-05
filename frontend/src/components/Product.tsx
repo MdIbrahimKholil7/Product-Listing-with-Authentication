@@ -5,22 +5,22 @@ import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import productApi from "../redux/product/productApi";
 import { useNavigate } from "react-router-dom";
+import ProductSearchInput from "./ProductSearchInput";
 
 const Product = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [query, setQuery] = useState("");
   const token = useSelector((state: RootState) => {
     return state.auth.token;
   });
-  const { data, isLoading, error } = productApi.useGetProductQuery(
-    {},
-    {
-      refetchOnMountOrArgChange: true,
-      refetchOnReconnect: true,
-    }
-  );
+  const { data, isLoading, error } = productApi.useGetProductQuery({
+    query,
+  });
   const navigate = useNavigate();
-
+  const handleSearch = () => {
+    setQuery(searchTerm);
+  };
   useEffect(() => {
     // Simulate token validation logic (replace with your actual token validation logic)
     const validateToken = async () => {
@@ -34,6 +34,10 @@ const Product = () => {
 
     validateToken();
   }, [token]);
+
+  useEffect(() => {
+    if (!searchTerm) setQuery(searchTerm);
+  }, [searchTerm]);
 
   if (isLoading) {
     return (
@@ -76,6 +80,15 @@ const Product = () => {
         </>
       ) : (
         <div>
+          <div className="flex justify-center py-10 ">
+            <div className="flex justify-center py-10 w-[50%]">
+              <ProductSearchInput
+                onSearch={handleSearch}
+                setSearchTerm={setSearchTerm}
+                handleSearch={handleSearch}
+              />
+            </div>
+          </div>
           <pre>{JSON.stringify(data?.data, null, 2)}</pre>
         </div>
       )}
