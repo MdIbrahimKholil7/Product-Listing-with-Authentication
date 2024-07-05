@@ -1,11 +1,11 @@
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
-import { AppDispatch } from "../redux/store";
+import { AppDispatch, RootState } from "../redux/store";
 import { authSlice } from "../redux/auth/authApi";
-import { userLoggedIn } from "../redux/auth/authSlice";
+import { userLoggedIn, switchToggle } from "../redux/auth/authSlice";
 import { RegisterFormInputs } from "../interface/userInterface";
 import { useNavigate } from "react-router-dom";
 
@@ -18,6 +18,7 @@ const Register: React.FC = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<RegisterFormInputs>();
+  const toggle: boolean = useSelector((state: RootState) => state.auth.toggle);
   const navigate = useNavigate();
   const onSubmit: SubmitHandler<RegisterFormInputs> = async (data) => {
     try {
@@ -106,6 +107,15 @@ const Register: React.FC = () => {
           {errors.address && (
             <span className="text-red-500">{errors.address.message}</span>
           )}
+        </div>
+
+        <div
+          onClick={() => {
+            dispatch(switchToggle(!toggle));
+          }}
+          className="py-4 text-blue-500 cursor-pointer"
+        >
+          Already have an account! Login
         </div>
         {isError &&
           typeof error === "object" &&

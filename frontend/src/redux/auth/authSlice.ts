@@ -4,9 +4,11 @@ import { User } from "../../interface/userInterface";
 type State = {
   user: User | null | undefined;
   token?: string | null | undefined;
+  toggle: boolean;
 };
 const initialState: State = {
   user: null,
+  toggle: true,
 };
 
 const authSlice = createSlice({
@@ -21,8 +23,11 @@ const authSlice = createSlice({
       state.token = undefined;
       state.user = undefined;
     },
+    switchToggle: (state, action) => {
+      state.toggle = action.payload;
+    },
   },
 });
 
-export const { userLoggedIn, userLoggedOut } = authSlice.actions;
+export const { userLoggedIn, userLoggedOut, switchToggle } = authSlice.actions;
 export default authSlice.reducer;

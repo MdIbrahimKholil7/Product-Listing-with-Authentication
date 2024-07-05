@@ -10,7 +10,6 @@ const Product = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const token = useSelector((state: RootState) => {
-    console.log({ state });
     return state.auth.token;
   });
   const { data, isLoading, error } = productApi.useGetProductQuery(
@@ -37,7 +36,11 @@ const Product = () => {
   }, [token]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="w-full h-screen flex justify-center items-center text-xl">
+        Loading...
+      </div>
+    );
   }
 
   if (!isAuthenticated) {
