@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 
 import { AppDispatch } from "../redux/store";
 import { authSlice } from "../redux/auth/authApi";
@@ -15,7 +16,8 @@ interface RegisterFormInputs {
 
 const Register: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const [register, { isLoading }] = authSlice.useRegisterMutation();
+  const [register, { isLoading, error, isError }] =
+    authSlice.useRegisterMutation();
   const {
     register: formRegister,
     handleSubmit,
@@ -26,6 +28,7 @@ const Register: React.FC = () => {
     try {
       const user = await register(data).unwrap();
       dispatch(userLoggedIn(user));
+      toast.success("Registered successfully!");
     } catch (err) {
       console.error("Failed to register:", err);
     }
@@ -107,6 +110,17 @@ const Register: React.FC = () => {
           <span className="text-red-500">{errors.address.message}</span>
         )}
       </div>
+      {isError &&
+        typeof error === "object" &&
+        "data" in error &&
+        typeof error.data === "object" &&
+        error.data !== null && // Check if error.data is not null or undefined
+        "message" in error.data && (
+          <div className="text-red-500 py-1 text-center mb-2">
+            {(error.data as { message: string }).message}
+          </div>
+        )}
+
       <button
         type="submit"
         disabled={isLoading}
