@@ -26,3 +26,10 @@ export interface RegisterResponse {
   token: string;
   user: User;
 }
+
+export interface RegisterFormInputs {
+  name: string;
+  email: string;
+  password: string;
+  address: string;
+}
